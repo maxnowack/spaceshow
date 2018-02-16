@@ -32,6 +32,7 @@
     ]
   },
   "dependencies": {
+    "psext": "0.0.4",
     "puppeteer": "^1.0.0"
   },
   "devDependencies": {
