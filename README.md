@@ -17,6 +17,7 @@ Wrapper for easily testing meteor apps with puppeteer
     args: […], // custom args to pass to meteor command
     meteorPath: '…', // custom path for running meteor command
     puppeteerOptions: { … } // custom puppeteer options. see https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#puppeteerlaunchoptions
+    initialGotoOptions: { … } // options for initial goto call (setting a different timeout for example)
   });
 
   // for more commands see https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#class-page

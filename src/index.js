@@ -38,7 +38,8 @@ export class Spaceshow extends EventEmitter {
         meteor.kill();
       });
 
-      return puppeteer.goto(`http://localhost:${this.options.port || 3000}`).then(() => puppeteer);
+      return puppeteer.goto(`http://localhost:${this.options.port || 3000}`, this.options.initialGotoOptions)
+        .then(() => puppeteer);
     });
   }
 }
