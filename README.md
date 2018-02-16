@@ -1,4 +1,4 @@
-# spaceshow
+# spaceshow [![Build Status](https://travis-ci.org/maxnowack/spaceshow.svg?branch=master)](https://travis-ci.org/maxnowack/spaceshow)
 Wrapper for easily testing meteor apps with puppeteer
 
 ## Installation
