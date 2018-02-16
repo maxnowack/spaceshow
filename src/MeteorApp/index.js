@@ -26,7 +26,7 @@ const hasReadyText = buffer => buffer.lastIndexOf('=> App running at:') !== -1;
 export default class MeteorApp extends EventEmitter {
   constructor(options) {
     super();
-    this.args = options.args;
+    this.args = options.args || [];
     this.appDir = options.appDir;
     this.port = options.port;
     this.settings = options.settings;
