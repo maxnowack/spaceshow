@@ -11,6 +11,9 @@
     "pretest": "npm run lint && npm run build",
     "test": "ava"
   },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/maxnowack/spaceshow.git"
