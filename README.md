@@ -29,6 +29,27 @@ Wrapper for easily testing meteor apps with puppeteer
   await page.close();
 ````
 
+If you want more control over the whole process, you can also instantiate spaceshow by yourself
+````javascript
+  import { Spaceshow } from 'spaceshow';
+
+  const show = new Spaceshow({
+    // options like in the example above
+  });
+
+  // log meteor output
+  show.on('stdout', (data) => {
+    console.log(data);
+  });
+  show.on('stderr', (data) => {
+    console.error(data);
+  });
+
+  const app = await show.start();
+
+  // …
+````
+
 ## License
 Licensed under MIT license. Copyright (c) 2018 Max Nowack
 
