@@ -2,10 +2,13 @@
   "name": "spaceshow",
   "version": "1.0.0",
   "description": "Wrapper for easily testing meteor apps with puppeteer",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepare": "npm run build",
     "lint": "eslint src",
+    "build": "babel src -d dist",
+    "clean": "rm -rf dist",
+    "test": "npm run lint && npm run build"
   },
   "repository": {
     "type": "git",
@@ -23,11 +26,18 @@
     "url": "https://github.com/maxnowack/spaceshow/issues"
   },
   "homepage": "https://github.com/maxnowack/spaceshow#readme",
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  },
   "dependencies": {
     "puppeteer": "^1.0.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.1",
+    "babel-preset-env": "^1.6.1",
     "eslint": "^4.17.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0"
