@@ -1,0 +1,28 @@
+{
+  "name": "spaceshow",
+  "version": "1.0.0",
+  "description": "Wrapper for easily testing meteor apps with puppeteer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxnowack/spaceshow.git"
+  },
+  "keywords": [
+    "meteor",
+    "testing",
+    "puppeteer",
+    "chrome"
+  ],
+  "author": "Max Nowack",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maxnowack/spaceshow/issues"
+  },
+  "homepage": "https://github.com/maxnowack/spaceshow#readme",
+  "dependencies": {
+    "puppeteer": "^1.0.0"
+  }
+}
