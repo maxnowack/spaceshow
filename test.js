@@ -7,6 +7,7 @@ test.before(async () => {
   page = await spaceshow({
     appDir: `${__dirname}/meteor-test-app`,
     port: 3100,
+    puppeteerOptions: { args: ['--no-sandbox', '--disable-setuid-sandbox'] },
   });
 });
 

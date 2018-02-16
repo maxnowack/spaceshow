@@ -1,5 +1,14 @@
+sudo: false
 os:
   - linux
 language: node_js
 node_js:
   - '8'
+
+before_install:
+  - curl https://install.meteor.com/?release=1.6.1 | /bin/sh
+  - export PATH="$HOME/.meteor:$PATH"
+
+script:
+  - (cd meteor-test-app && meteor npm install)
+  - npm test
