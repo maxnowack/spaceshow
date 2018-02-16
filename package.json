@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint src",
   },
   "repository": {
     "type": "git",
@@ -24,5 +25,11 @@
   "homepage": "https://github.com/maxnowack/spaceshow#readme",
   "dependencies": {
     "puppeteer": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "eslint": "^4.17.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0"
   }
 }
