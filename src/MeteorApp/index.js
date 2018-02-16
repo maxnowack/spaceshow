@@ -4,6 +4,11 @@ import ps from 'psext';
 import childProcess from 'child_process';
 import MongoProcess from './MongoProcess';
 
+const getSettingsString = (settings) => {
+  if (settings.indexOf('{') > -1) return `"${settings.replace(/"/, '\\"')}"`;
+  return settings;
+};
+
 const getMongoProcess = meteorPid => new Promise((resolve, reject) => {
   ps.lookup({
     command: 'mongod',
@@ -44,7 +49,7 @@ export default class MeteorApp extends EventEmitter {
     const args = [];
     args.push('run');
     args.push('--port', this.port);
-    if (this.settings) args.push(`--settings="${this.settings.replace(/"/, '\\"')}"`);
+    if (this.settings) args.push(`--settings=${getSettingsString(this.settings)}`);
     this.args.forEach(arg => args.push(arg));
     return args;
   }
