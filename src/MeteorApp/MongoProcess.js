@@ -1,9 +1,11 @@
+import { EventEmitter } from 'events';
+
 const maxAttempts = 40;
 
-export default class MongoProcess {
+export default class MongoProcess extends EventEmitter {
   constructor(mongod) {
+    super();
     this.mongod = mongod;
-    process.on('exit', () => this.kill());
   }
 
   kill() {
@@ -17,7 +19,7 @@ export default class MongoProcess {
       if (attempts <= maxAttempts) {
         const signal = attempts < maxAttempts / 2 ? 'SIGTERM' : 'SIGKILL';
 
-        if (this.mongod.dead == null) {
+        if (!this.mongod.dead) {
           try {
             process.kill(this.mongod.pid, signal);
           } catch (e) {
@@ -30,9 +32,10 @@ export default class MongoProcess {
           this.emit('killed');
         }
         attempts += 1;
+      } else {
+        clearInterval(interval);
+        this.emit('error');
       }
-      clearInterval(interval);
-      this.emit('error');
     };
 
     onInterval();

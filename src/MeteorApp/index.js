@@ -36,12 +36,16 @@ export default class MeteorApp extends EventEmitter {
       stdout: '',
       stderr: '',
     };
+
+    process.on('exit', () => this.kill());
   }
 
   getArgs() {
-    const args = this.args || [];
-    args.push(['--port', this.port]);
-    if (this.settings) args.push(['--settings', this.settings]);
+    const args = [];
+    args.push('run');
+    args.push('--port', this.port);
+    if (this.settings) args.push(`--settings="${this.settings.replace(/"/, '\\"')}"`);
+    this.args.forEach(arg => args.push(arg));
     return args;
   }
 
@@ -49,8 +53,10 @@ export default class MeteorApp extends EventEmitter {
   launch() {
     if (!this.launchPromise) {
       this.launchPromise = new Promise((resolve, reject) => {
-        this.childProcess = childProcess.spawn(this.meteorPath, this.getArgs(), {
+        const args = this.getArgs();
+        this.childProcess = childProcess.spawn(this.meteorPath, args, {
           cwd: this.appDir,
+          detached: false,
         });
 
         this.childProcess.on('exit', (code, signal) => {
@@ -59,6 +65,7 @@ export default class MeteorApp extends EventEmitter {
 
         this.childProcess.stdout.on('data', (data) => {
           this.buffer.stdout += data;
+          this.emit('stdout', data);
 
           if (hasStartedMongoDBText(data)) {
             getMongoProcess(this.childProcess.pid).then((p) => {
@@ -68,21 +75,22 @@ export default class MeteorApp extends EventEmitter {
           }
 
           if (hasErrorText(data)) {
-            this.emit('error');
+            this.emit('error', data);
             reject(data);
           }
 
           if (hasReadyText(data)) {
             this.emit('started');
-            resolve();
+            resolve(this);
           }
         });
 
         this.childProcess.stderr.on('data', (data) => {
           this.buffer.stderr += data;
+          this.emit('stderr', data);
 
           if (hasErrorText(data)) {
-            this.emit('error');
+            this.emit('error', this.buffer.stderr);
             reject(data);
           }
         });
