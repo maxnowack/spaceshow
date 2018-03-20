@@ -63,6 +63,23 @@ const pageFns = [
   'waitForXPath',
 ];
 
+const pageEvents = [
+  'console',
+  'dialog',
+  'domcontentloaded',
+  'error',
+  'frameattached',
+  'framedetached',
+  'framenavigated',
+  'load',
+  'metrics',
+  'pageerror',
+  'request',
+  'requestfailed',
+  'requestfinished',
+  'response',
+];
+
 class PuppeteerWrapper extends EventEmitter {
   constructor(options) {
     super();
@@ -77,6 +94,11 @@ class PuppeteerWrapper extends EventEmitter {
       })
       .then((page) => {
         this.page = page;
+
+        // mirror page events
+        pageEvents.forEach((eventName) => {
+          this.page.on(eventName, (...args) => this.emit(eventName, ...args));
+        });
 
         // mirror page functions
         pageFns.forEach((fnName) => {

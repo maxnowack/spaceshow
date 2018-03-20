@@ -6,6 +6,10 @@ import './main.html';
 Template.hello.onCreated(function helloOnCreated() {
   // counter starts at 0
   this.counter = new ReactiveVar(0);
+
+  setTimeout(() => {
+    console.log('Hello world!');
+  }, 5000);
 });
 
 Template.hello.helpers({
