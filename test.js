@@ -12,6 +12,12 @@ test.before(async () => {
 });
 
 test('start meteor app', async (t) => {
+  await new Promise((resolve) => {
+    page.on('console', (msg) => {
+      t.is(msg.text(), 'Hello world!');
+      resolve();
+    });
+  });
   await page.waitForSelector('h1');
   const html = await page.evaluate(() => document.querySelector('h1').innerHTML);
   t.is(html, 'Welcome to Meteor!');
