@@ -1,6 +1,6 @@
 {
   "name": "spaceshow",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Wrapper for easily testing meteor apps with puppeteer",
   "main": "dist/index.js",
   "scripts": {
